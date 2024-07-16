@@ -10,10 +10,10 @@ const App: React.FC = () => {
   const handleSubmit = async () => {
     if (name) {
       try {
-        // 发送请求生成QR码
+        // send a POST request to the backend to generate a QR code
         await axios.post('http://127.0.0.1:8000/api/generate-qr/', { name });
 
-        // 获取生成的QR码
+        // get the generated QR code
         const response = await axios.get(`http://127.0.0.1:8000/api/get-qr/${name}/`, { responseType: 'blob' });
         const qrCodeBlob = new Blob([response.data], { type: 'image/png' });
         const qrCodeUrl = URL.createObjectURL(qrCodeBlob);
@@ -28,7 +28,7 @@ const App: React.FC = () => {
   const handleSearch = async () => {
     if (queryName) {
       try {
-        // 获取已有的QR码
+        // get the existing QR code
         const response = await axios.get(`http://127.0.0.1:8000/api/get-qr/${queryName}/`, { responseType: 'blob' });
         const qrCodeBlob = new Blob([response.data], { type: 'image/png' });
         const qrCodeUrl = URL.createObjectURL(qrCodeBlob);
